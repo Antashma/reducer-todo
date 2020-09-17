@@ -1,42 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 
-class ToDoForm extends React.Component {
-    state = {
-        newTask: '', 
+const ToDoForm = (props) => {
+    const [newTask, setNewTask] = useState('')
+
+    const handleChanges = e => {
+        setNewTask(e.target.value)
+        console.log(newTask)
     }
 
-    handleChanges = e => {
-        this.setState({newTask: e.target.value})
-    }
-
-    handleSubmit = event => {
+    const handleSubmit = event => {
         event.preventDefault();
-        this.props.addTask({task:this.state.newTask, completed: false, id: Date.now()})
+        props.addTask({task: newTask, completed: false, id: Date.now()})
     }
 
-    componentDidUpdate() {
-        console.log('♥: todoform.js : todoform : CDU this.state.newTask: ',this.state.newTask)
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <fieldset >
-                    <legend>add a task</legend>
-                    <input 
-                        type='text' 
-                        id='new-task' 
-                        name='new-task'
-                        value={this.state.newTask}
-                        placeholder='create a task...'
-                        onChange={this.handleChanges}/>
-                    <button type='submit'>Add Task</button>
-                    <hr />
-                    <button onClick={this.props.clearCompleted}>Clear Completed</button>
-                </fieldset>
-            </form>
+    return (
+        <form onSubmit={handleSubmit}>
+            <fieldset >
+                <legend>add a task</legend>
+                <input 
+                    type='text' 
+                    id='new-task' 
+                    name='new-task'
+                    value={newTask}
+                    placeholder='create a task...'
+                    onChange={handleChanges}/>
+                <button type='submit'>Add Task</button>
+                <hr />
+                <button onClick={props.clearCompleted}>Clear Completed</button>
+            </fieldset>
+        </form>
         )
-    }
 }
 
 export default ToDoForm;

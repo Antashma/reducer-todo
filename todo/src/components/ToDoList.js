@@ -1,28 +1,22 @@
-import React from 'react';
+import React, {useState, useReducer} from 'react';
 import { todos } from '../data.js'
 import ToDo from './ToDo'
 import ToDoForm from './ToDoForm.js';
 
-class ToDoList extends React.Component {
-    state = {
-        data: [],
+const ToDoList = () => {
+    const [todoData, setTodoData] = useState([...todos])
+
+    const addTask = newTask => {
+        setTodoData([...todoData, newTask])
     }
 
-    componentDidMount() {
-        this.setState({data: [...todos]})
-    }
-
-    addTask = newTask => {
-        this.setState({data: [ ...this.state.data, newTask]})
-    }
-
-    clearCompleted = e => {
+    const clearCompleted = e => {
         e.preventDefault();
-        const notComplete = this.state.data.filter(item => !item.completed);
+        const notComplete = todoData.filter(item => !item.completed);
         console.log('not complete', notComplete)
     }
 
- /*    toggleComplete = taskID => {
+ /*    const toggleComplete = taskID => {
         console.log(taskID);
         this.setState({...this.state.data,
             this.data.map(item => {
@@ -33,23 +27,18 @@ class ToDoList extends React.Component {
 
     } */
 
-    componentDidUpdate() {
-        console.log('♥: todolist.js : todolist : CDU/this.state.data: ', this.state.data)
-    }
 
-    render() {
         //console.log('♥: todolist.js : render comp: this.state value:',this.state)
-        return (
-            <div>
-                <h2>get busy❣</h2>
-                <ToDoForm addTask = {this.addTask} clearCompleted = {this.clearCompleted} />
-                {this.state.data.length > 0 
-                    ? this.state.data.map((item, index) => <ToDo toggleComplete={this.toggleComplete} key={index} taskData = {item}/>)
-                    : 'l♥ading...'
-                }
-            </div>
-        )
-    }
+    return (
+        <div>
+            <h2>get busy❣</h2>
+            <ToDoForm addTask = {addTask} clearCompleted = {clearCompleted} />
+            {todoData.length > 0 
+                ? todoData.map((item, index) => <ToDo key={index} taskData = {item}/>)
+                : 'l♥ading...'
+            }
+        </div>
+    )
 }
 
 export default ToDoList;
