@@ -8,7 +8,8 @@ const ACTIONS = {
     ADD_TASK: 'add-task',
     CLEAR_COMPLETED: 'clear-completed',
     TOGGLE_COMPLETE: 'toggle-complete',
-    DELETE_TASK: 'delete-task'
+    DELETE_TASK: 'delete-task',
+    EDIT_TASK: 'edit-task'
 }
 
 function reducer(todoData, action) {
@@ -26,7 +27,11 @@ function reducer(todoData, action) {
         case ACTIONS.CLEAR_COMPLETED:
             return todoData.filter(task => {
                 return task.completed === false;
-            }) 
+            }); 
+        case ACTIONS.EDIT_TASK:
+            return todoData.map(task => {
+                return task.id === action.payload.id ? {...task, task: action.payload.task} : task;
+            }); 
         default:
             return todoData;
         }
@@ -45,6 +50,17 @@ const ToDoList = () => {
                 task: newTask, 
                 completed: false, 
                 id: Date.now()
+            }
+        })
+    }
+
+    const editTask = (editedTask, taskID) => {
+        console.log('param vlues',editedTask, taskID)
+        dispatch({ 
+            type: ACTIONS.EDIT_TASK, 
+            payload: {
+                task: editedTask, 
+                id: taskID
             }
         })
     }
@@ -70,7 +86,6 @@ const ToDoList = () => {
 
     return (
         <div>
-            <h2>get busy❣</h2>
 {/* TODOFORM COMPONENT*/}
             <ToDoForm addTask = {addTask} clearCompleted = {clearCompleted} />
 {/* TODO COMPONENTS */}
@@ -80,7 +95,8 @@ const ToDoList = () => {
                         <ToDo key={item.id} 
                             taskData = {item} 
                             toggleComplete = {toggleComplete} 
-                            deleteTask = {deleteTask} />
+                            deleteTask = {deleteTask}
+                            editTask = {editTask} />
                     )
                 })
                 : 'no tasks here!'
