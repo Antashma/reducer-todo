@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+
 .App {
   text-align: center;
 }
@@ -15,24 +17,44 @@
 
 .App-header {
   background-color: #282c34;
+  background-image: linear-gradient(#e383b9, #5f65e9);
+
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: floralwhite;
+  text-shadow: 1px 1px 3px #555;
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
+/* @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
+} */
+
+h1, h2 , .task{ 
+  font-family: 'Handlee', cursive;
+}
+
+.task {
+  min-width: 275px;
+  padding: 10px;
+  border: 2px solid floralwhite;
+  box-shadow: 1px 1px 3px #555;
+
+  color:white;
+}
+
+.task::before {
+  content: '♥ ';
 }
