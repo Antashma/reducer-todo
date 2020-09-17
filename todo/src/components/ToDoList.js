@@ -22,7 +22,11 @@ function reducer(todoData, action) {
         case ACTIONS.DELETE_TASK:
             return todoData.filter(task => {
                 return task.id !== action.payload.id;
-            });   
+            });
+        case ACTIONS.CLEAR_COMPLETED:
+            return todoData.filter(task => {
+                return task.completed === false;
+            }) 
         default:
             return todoData;
         }
@@ -57,22 +61,18 @@ const ToDoList = () => {
             type: ACTIONS.DELETE_TASK, 
             payload: {id: taskID}
         })
-    }
-/*     const clearCompleted = e => {
+    };
+
+    const clearCompleted = e => {
         e.preventDefault();
-        const notComplete = todoData.filter(item => !item.completed);
-        console.log('not complete', notComplete)
-    } */
+        dispatch({type: ACTIONS.CLEAR_COMPLETED})
+    } ;
 
-
-
-
-        //console.log('♥: todolist.js : render comp: this.state value:',this.state)
     return (
         <div>
             <h2>get busy❣</h2>
 {/* TODOFORM COMPONENT*/}
-            <ToDoForm addTask = {addTask} />
+            <ToDoForm addTask = {addTask} clearCompleted = {clearCompleted} />
 {/* TODO COMPONENTS */}
             {todoData.length > 0 
                 ? todoData.map(item => {

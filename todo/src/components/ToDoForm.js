@@ -25,8 +25,8 @@ const ToDoForm = (props) => {
                     placeholder='create a task...'
                     onChange={handleChanges}/>
                 <button type='submit' disabled={newTask.length < 1 ? true : false}>Add Task</button>
-                {/* <hr /> */}
-                {/* <button onClick={props.clearCompleted}>Clear Completed</button> */}
+                <hr />
+                <button onClick={e => props.clearCompleted(e)}>Clear Completed</button>
             </fieldset>
         </form>
         )
