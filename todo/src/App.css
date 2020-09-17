@@ -22,23 +22,72 @@ a {
   color: #61dafb;
 }
 
-h1, h2 , .task p { 
+h1, h2 { 
   font-family: 'Handlee', cursive;
+  margin-bottom:5px;
 }
 
-.task p {
+fieldset {
+  border-radius: 5px;
+}
+
+.task-form {
+  margin-bottom: 10px;
+}
+
+.edit-task-form {
+  position: absolute;
+  background: floralwhite;
+  padding: 5px;
+  margin:5px;
+  border: 3px solid pink;
+  border-radius: 3px;
+
+}
+
+.task-container {
+  display: flex; 
+  justify-content: space-between;
   min-width: 275px;
-  padding: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
   border: 2px solid floralwhite;
+  border-radius: 5px;
   box-shadow: 1px 1px 3px #555;
-  transition: text-decoration 3s;
-  color:white;
 }
 
-.task p {
+.task {
+  margin:0;
+  padding: 0;
+  font-family: 'Handlee', cursive;
+  text-align: left;
+  color:white;
+  
   cursor: pointer;
 }
 
-.task p::before {
+.task::before {
   content: '♥ ';
 }
+
+.completed {
+  color: silver;
+  text-decoration: line-through;
+}
+
+.button-container {
+  align-self: flex-end;
+}
+
+.button-container button {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container button:hover {
+  background: white;
+  color:#5f65e9;
+}
+

@@ -14,7 +14,7 @@ const ToDoForm = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='task-form'>
             <fieldset >
                 <legend>add a task</legend>
                 <input 

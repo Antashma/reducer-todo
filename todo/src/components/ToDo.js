@@ -24,19 +24,22 @@ class ToDo extends React.Component {
 
     render() {
         return (
-            <div className='task'>
-                <p style={{textDecoration: this.props.taskData.completed ? 'line-through' : 'none'}} onClick= {e => this.props.toggleComplete(this.props.taskData.id)}>
+            <div className='task-container'>
+                <p className={`task ${this.props.taskData.completed ? 'completed' : ''}`} onClick= {e => this.props.toggleComplete(this.props.taskData.id)}>
                     {this.props.taskData.task}
                 </p>
                 
-                <button onClick = {this.handleEdit}> ✏ </button>
-                {/* INPUT FOR EDITING IF TRUE */}
-                {this.state.isEditing 
-                    ? <form onSubmit={this.handleSubmit}><input type='text' value={this.state.editedTask} onChange={this.handleChanges} /><button type='submit'>Update Task</button></form> 
-                    : ''
-                }
-            
-                <button onClick= {e => this.props.deleteTask(this.props.taskData.id)}> ✖ </button>              
+                <div className='button-container'>
+{/* EDIT BUTTON */}
+                    <button onClick = {this.handleEdit}> ✏ </button>
+{/* INPUT FOR EDITING IF TRUE */}
+                    {this.state.isEditing 
+                        ? <form onSubmit={this.handleSubmit} className='edit-task-form'><input type='text' placeholder='do this instead...' value={this.state.editedTask} onChange={this.handleChanges} /><button type='submit'>Update Task</button></form> 
+                        : ''
+                    }
+{/* DELETE BUTTON */}
+                    <button onClick= {e => this.props.deleteTask(this.props.taskData.id)}> ✖ </button> 
+                </div>             
             </div>
         )
     }
