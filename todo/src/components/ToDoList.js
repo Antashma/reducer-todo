@@ -1,12 +1,14 @@
-import React, {useState, useReducer} from 'react';
+import React, {useReducer} from 'react';
 import { todos } from '../data.js'
 import ToDo from './ToDo'
 import ToDoForm from './ToDoForm.js';
 
+/* GLOBAL VARIABLES AND FUCTIONS */
 const ACTIONS = {
     ADD_TASK: 'add-task',
     CLEAR_COMPLETED: 'clear-completed',
-    TOGGLE_COMPLETE: 'toggle-complete'
+    TOGGLE_COMPLETE: 'toggle-complete',
+    DELETE_TASK: 'delete-task'
 }
 
 function reducer(todoData, action) {
@@ -16,14 +18,18 @@ function reducer(todoData, action) {
         case ACTIONS.TOGGLE_COMPLETE:
             return todoData.map(task => {
                 return task.id === action.payload.id ? {...task, completed: !task.completed} : task;
-            });     
+            });
+        case ACTIONS.DELETE_TASK:
+            return todoData.filter(task => {
+                return task.id !== action.payload.id;
+            });   
         default:
             return todoData;
         }
 }
 
 
-
+/* TODOLIST COMPONENT */
 const ToDoList = () => {
     const [todoData, dispatch] = useReducer(reducer, [...todos])
     //dispatch will update state
@@ -38,10 +44,17 @@ const ToDoList = () => {
             }
         })
     }
-    
+
     const toggleComplete = taskID => {
         dispatch({
             type: ACTIONS.TOGGLE_COMPLETE, 
+            payload: {id: taskID}
+        })
+    }
+
+    const deleteTask = taskID => {
+        dispatch({
+            type: ACTIONS.DELETE_TASK, 
             payload: {id: taskID}
         })
     }
@@ -62,7 +75,14 @@ const ToDoList = () => {
             <ToDoForm addTask = {addTask} />
 {/* TODO COMPONENTS */}
             {todoData.length > 0 
-                ? todoData.map(item => <ToDo key={item.id} taskData = {item} toggleComplete = {toggleComplete}/>)
+                ? todoData.map(item => {
+                    return (
+                        <ToDo key={item.id} 
+                            taskData = {item} 
+                            toggleComplete = {toggleComplete} 
+                            deleteTask = {deleteTask} />
+                    )
+                })
                 : 'no tasks here!'
             }
         </div>

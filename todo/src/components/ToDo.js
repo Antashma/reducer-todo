@@ -7,13 +7,12 @@ class ToDo extends React.Component {
                 {this.props.taskData.task}
                 <fieldset>
                     <button onClick = {e => this.props.toggleComplete(this.props.taskData.id)}>✔</button>
-                    <button>✖</button>
+                    <button onClick = {e => this.props.deleteTask(this.props.taskData.id)}>✖</button>
                 </fieldset>
                 
             </div>
-            )
+        )
     }
 }
-
 
 export default ToDo;
