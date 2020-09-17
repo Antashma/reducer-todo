@@ -58,3 +58,10 @@ h1, h2 , .task{
 .task::before {
   content: '♥ ';
 }
+
+.completed {
+  color:silver;
+  text-shadow: none;
+  text-decoration: line-through;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}

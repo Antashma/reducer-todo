@@ -5,12 +5,12 @@ const ToDoForm = (props) => {
 
     const handleChanges = e => {
         setNewTask(e.target.value)
-        console.log(newTask)
     }
 
     const handleSubmit = event => {
         event.preventDefault();
-        props.addTask({task: newTask, completed: false, id: Date.now()})
+        props.addTask(newTask)
+        setNewTask('')
     }
 
     return (
@@ -24,9 +24,9 @@ const ToDoForm = (props) => {
                     value={newTask}
                     placeholder='create a task...'
                     onChange={handleChanges}/>
-                <button type='submit'>Add Task</button>
-                <hr />
-                <button onClick={props.clearCompleted}>Clear Completed</button>
+                <button type='submit' disabled={newTask.length < 1 ? true : false}>Add Task</button>
+                {/* <hr /> */}
+                {/* <button onClick={props.clearCompleted}>Clear Completed</button> */}
             </fieldset>
         </form>
         )

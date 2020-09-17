@@ -3,39 +3,67 @@ import { todos } from '../data.js'
 import ToDo from './ToDo'
 import ToDoForm from './ToDoForm.js';
 
+const ACTIONS = {
+    ADD_TASK: 'add-task',
+    CLEAR_COMPLETED: 'clear-completed',
+    TOGGLE_COMPLETE: 'toggle-complete'
+}
+
+function reducer(todoData, action) {
+    switch(action.type) {
+        case ACTIONS.ADD_TASK:
+            return [...todoData, action.payload];      
+        case ACTIONS.TOGGLE_COMPLETE:
+            return todoData.map(task => {
+                return task.id === action.payload.id ? {...task, completed: !task.completed} : task;
+            });     
+        default:
+            return todoData;
+        }
+}
+
+
+
 const ToDoList = () => {
-    const [todoData, setTodoData] = useState([...todos])
+    const [todoData, dispatch] = useReducer(reducer, [...todos])
+    //dispatch will update state
 
     const addTask = newTask => {
-        setTodoData([...todoData, newTask])
+        dispatch({ 
+            type: ACTIONS.ADD_TASK, 
+            payload: {
+                task: newTask, 
+                completed: false, 
+                id: Date.now()
+            }
+        })
     }
-
-    const clearCompleted = e => {
+    
+    const toggleComplete = taskID => {
+        dispatch({
+            type: ACTIONS.TOGGLE_COMPLETE, 
+            payload: {id: taskID}
+        })
+    }
+/*     const clearCompleted = e => {
         e.preventDefault();
         const notComplete = todoData.filter(item => !item.completed);
         console.log('not complete', notComplete)
-    }
-
- /*    const toggleComplete = taskID => {
-        console.log(taskID);
-        this.setState({...this.state.data,
-            this.data.map(item => {
-            if(taskID === item.id) {
-                !item.completed
-            }
-        })})
-
     } */
+
+
 
 
         //console.log('♥: todolist.js : render comp: this.state value:',this.state)
     return (
         <div>
             <h2>get busy❣</h2>
-            <ToDoForm addTask = {addTask} clearCompleted = {clearCompleted} />
+{/* TODOFORM COMPONENT*/}
+            <ToDoForm addTask = {addTask} />
+{/* TODO COMPONENTS */}
             {todoData.length > 0 
-                ? todoData.map((item, index) => <ToDo key={index} taskData = {item}/>)
-                : 'l♥ading...'
+                ? todoData.map(item => <ToDo key={item.id} taskData = {item} toggleComplete = {toggleComplete}/>)
+                : 'no tasks here!'
             }
         </div>
     )
