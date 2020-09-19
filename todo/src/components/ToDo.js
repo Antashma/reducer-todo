@@ -24,19 +24,29 @@ class ToDo extends React.Component {
 
     render() {
         return (
-            <div className='task-container'>
-                <p className={`task ${this.props.taskData.completed ? 'completed' : ''}`} onClick= {e => this.props.toggleComplete(this.props.taskData.id)}>
-                    {this.props.taskData.task}
-                </p>
+            <div className='task-container'>    
+{/* TASK OR INPUT WILL DISPLAY IF isEditing IS TRUE */}
+                {this.state.isEditing 
+/* EDITING INPUT */
+                    ? <form onSubmit={this.handleSubmit} className='edit-task-form'>
+                        <input type='text' placeholder='enter task...' value={this.state.editedTask} onChange={this.handleChanges} />
+                        <button type='submit'>Update Task</button>
+                    </form>
+/* TASK  */ 
+                    : <p className={`task ${this.props.taskData.completed ? 'completed' : ''}`} onClick= {e => this.props.toggleComplete(this.props.taskData.id)}>
+                {this.props.taskData.task}
+
+                    </p>
                 
+                    }
+{/* DISPLAY TIMESTAMP IF COMPLETE */}
+                {this.props.taskData.completed 
+                    ? <p className='momentComplete'>{this.props.taskData.time}</p> 
+                    : ''
+                }
                 <div className='button-container'>
 {/* EDIT BUTTON */}
                     <button onClick = {this.handleEdit}> ✏ </button>
-{/* INPUT FOR EDITING IF TRUE */}
-                    {this.state.isEditing 
-                        ? <form onSubmit={this.handleSubmit} className='edit-task-form'><input type='text' placeholder='do this instead...' value={this.state.editedTask} onChange={this.handleChanges} /><button type='submit'>Update Task</button></form> 
-                        : ''
-                    }
 {/* DELETE BUTTON */}
                     <button onClick= {e => this.props.deleteTask(this.props.taskData.id)}> ✖ </button> 
                 </div>             

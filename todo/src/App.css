@@ -37,18 +37,21 @@ fieldset {
 
 .edit-task-form {
   position: absolute;
-  background: floralwhite;
-  padding: 5px;
-  margin:5px;
-  border: 3px solid pink;
+  top:0;
+  left:0;
+  width: 100%;
+  background: transparent;
+ /*  border: 1px solid lime; */
   border-radius: 3px;
 
 }
 
 .task-container {
   display: flex; 
+  position: relative;
   justify-content: space-between;
-  min-width: 275px;
+  flex-wrap: wrap;
+  max-width: 300px;
   padding: 5px;
   margin-bottom: 10px;
   border: 2px solid floralwhite;
@@ -56,7 +59,7 @@ fieldset {
   box-shadow: 1px 1px 3px #555;
 }
 
-.task {
+p.task {
   margin:0;
   padding: 0;
   font-family: 'Handlee', cursive;
@@ -66,11 +69,11 @@ fieldset {
   cursor: pointer;
 }
 
-.task::before {
+p.task::before {
   content: '♥ ';
 }
 
-.completed {
+p.task.completed {
   color: silver;
   text-decoration: line-through;
 }
@@ -91,3 +94,14 @@ fieldset {
   color:#5f65e9;
 }
 
+p.momentComplete {
+  color:#282c34;
+  order: 3;
+  width: 100%;
+  text-decoration: none;
+  font-size: xx-small;
+  font-style: italic;
+  text-shadow: none;
+  font-weight: bold;
+  text-transform: lowercase;
+}

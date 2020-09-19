@@ -2,8 +2,10 @@ import React, {useReducer} from 'react';
 import { todos } from '../data.js'
 import ToDo from './ToDo'
 import ToDoForm from './ToDoForm.js';
+import moment from 'moment';
 
 /* GLOBAL VARIABLES AND FUCTIONS */
+
 const ACTIONS = {
     ADD_TASK: 'add-task',
     CLEAR_COMPLETED: 'clear-completed',
@@ -18,7 +20,7 @@ function reducer(todoData, action) {
             return [...todoData, action.payload];      
         case ACTIONS.TOGGLE_COMPLETE:
             return todoData.map(task => {
-                return task.id === action.payload.id ? {...task, completed: !task.completed} : task;
+                return task.id === action.payload.id ? {...task, completed: !task.completed, time:action.payload.timeStamp} : task;
             });
         case ACTIONS.DELETE_TASK:
             return todoData.filter(task => {
@@ -68,7 +70,7 @@ const ToDoList = () => {
     const toggleComplete = taskID => {
         dispatch({
             type: ACTIONS.TOGGLE_COMPLETE, 
-            payload: {id: taskID}
+            payload: {id: taskID, timeStamp: `completed ${moment().calendar()}`}
         })
     }
 
