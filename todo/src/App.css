@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Handlee&display=swap');
+
+.App {
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  background-image: linear-gradient(#e383b9, #5f65e9);
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: floralwhite;
+  text-shadow: 1px 1px 3px #555;
+}
+
+a {
+  color: #61dafb;
+}
+
+h1, h2 { 
+  font-family: 'Handlee', cursive;
+  margin-bottom:5px;
+}
+
+fieldset {
+  border-radius: 5px;
+}
+
+.task-form {
+  margin-bottom: 10px;
+}
+
+.edit-task-form {
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  background: transparent;
+ /*  border: 1px solid lime; */
+  border-radius: 3px;
+
+}
+
+.task-container {
+  display: flex; 
+  position: relative;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 300px;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 2px solid floralwhite;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px #555;
+}
+
+p.task {
+  margin:0;
+  padding: 0;
+  font-family: 'Handlee', cursive;
+  text-align: left;
+  color:white;
+  
+  cursor: pointer;
+}
+
+p.task::before {
+  content: '♥ ';
+}
+
+p.task.completed {
+  color: silver;
+  text-decoration: line-through;
+}
+
+.button-container {
+  align-self: flex-end;
+}
+
+.button-container button {
+  background: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button-container button:hover {
+  background: white;
+  color:#5f65e9;
+}
+
+p.momentComplete {
+  color:#282c34;
+  order: 3;
+  width: 100%;
+  text-decoration: none;
+  font-size: xx-small;
+  font-style: italic;
+  text-shadow: none;
+  font-weight: bold;
+  text-transform: lowercase;
+}
